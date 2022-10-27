@@ -45,9 +45,7 @@ public class Kadai {
                 System.exit(-1);
             } else {
                 System.out.println(k.day + k.m[k.month] + k.year);
-            }
-            
-            
+            }            
         }
     }
 }
