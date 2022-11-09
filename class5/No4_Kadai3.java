@@ -4,7 +4,6 @@
  *   
  */
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class No4_Kadai3 {
