@@ -6,6 +6,10 @@ public class Person {
     public int age;
     public String birthday;
 
+    public Person() {
+        
+    }
+
     public Person(String s, String n, int a, String b){
         sei = s;
         name = n;

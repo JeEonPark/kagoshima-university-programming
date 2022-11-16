@@ -1,16 +1,20 @@
 package class7;
 
 public class Person {
-    public String sei;
-    public String name;
-    public int age;
-    public String birthday;
+    private String sei;
+    private String name;
+    private int age;
+    private String birthday;
 
-    public Person(String s, String n, int a, String b){
-        sei = s;
-        name = n;
-        age = a;
-        birthday = b;
+    public Person() {
+        
+    }
+
+    public Person(String sei, String name, int age, String birthday){
+        this.sei = sei;
+        this.name = name;
+        this.age = age;
+        this.birthday = birthday;
     }
 
     public void showSei(){
@@ -26,17 +30,30 @@ public class Person {
         System.out.println("Birthday : " + birthday);
     }
 
-    public void changeSei(String g){
-        sei = g;
+    public String getSei(String g){
+        return sei;
     }
-    public void changeName(String n){
-        name = n;
+    public String getName(String n){
+        return name;
     }
-    public void changeAge(int a){
-        age = a;
+    public int getAge(int a){
+        return age;
     }
-    public void changeBirthday(String b){
-        birthday = b;
+    public String getBirthday(String b){
+        return birthday;
+    }
+
+    public void setSei(String sei){
+        this.sei = sei;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setAge(int age){
+        this.age = age;
+    }
+    public void setBirthday(String birthday){
+        this.birthday = birthday;
     }
 }
 
