@@ -30,16 +30,16 @@ public class Person {
         System.out.println("Birthday : " + birthday);
     }
 
-    public String getSei(String g){
+    public String getSei(){
         return sei;
     }
-    public String getName(String n){
+    public String getName(){
         return name;
     }
-    public int getAge(int a){
+    public int getAge(){
         return age;
     }
-    public String getBirthday(String b){
+    public String getBirthday(){
         return birthday;
     }
 
