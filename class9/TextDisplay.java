@@ -17,6 +17,7 @@ public class TextDisplay extends JFrame {
             JButton bt = new JButton("追加");
             bt.addActionListener(this);
             add(tf_str);
+            add(tf_number_str);
             add(bt);
         }
 
@@ -26,7 +27,12 @@ public class TextDisplay extends JFrame {
 
         public void actionPerformed(ActionEvent ev) {
             String s = tf_str.getText();
-            disp.addStr(s);
+            try{
+                int n = Integer.parseInt(tf_number_str.getText());
+                disp.addStr(s, n);
+            } catch (NumberFormatException ex) {
+                
+            }
         }
     }
 
@@ -38,8 +44,10 @@ public class TextDisplay extends JFrame {
             setBackground(Color.white);
         }
 
-        public void addStr(String s) {
-            str_list.add(s);
+        public void addStr(String s, int n) {
+            for(int i = 0; i < n; i++) {
+                str_list.add(s);
+            }
             repaint();
         }
 

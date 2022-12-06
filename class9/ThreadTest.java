@@ -25,11 +25,12 @@ public class ThreadTest {
             System.out.println(name + "終了");
         }
     }
-    
+
     public void exec() {
         System.out.println("メインスレッド開始");
-        (new TimeThread("スレッド1", 2)).start();
-        (new TimeThread("スレッド2", 3)).start();
+        (new TimeThread("スレッド1", 1)).start();
+        (new TimeThread("スレッド2", 2)).start();
+        (new TimeThread("スレッド3", 3)).start();
         System.out.println("メインスレッド終了");
     }
 
