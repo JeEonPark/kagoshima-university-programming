@@ -3,6 +3,9 @@ package class10;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import class11.sp.DanmakuField;
+
 import java.util.*;
 
 public class DanmakuTest1 extends JFrame {
@@ -29,7 +32,7 @@ public class DanmakuTest1 extends JFrame {
     }
 
     public class GameManager extends Thread {
-        public GameManager(GamePanel gp) {
+        public GameManager(DanmakuField df) {
         }
     }
 

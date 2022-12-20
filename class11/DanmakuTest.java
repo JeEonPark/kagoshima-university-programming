@@ -13,19 +13,21 @@ public class DanmakuTest extends JFrame {
         public Shot(double x, double y, double a) {
             sx = x;
             sy = y;
-            vx = 3*Math.cos(a);
-            vy = 3*Math.sin(a);
+            vx = 3 * Math.cos(a);
+            vy = 3 * Math.sin(a);
         }
 
         public void move(int w, int h) {
             sx += vx;
             sy += vy;
-            if(sx < 0 || sx > w) vx=-vx;
-            if(sy < 0 || sy > h) vy=-vy;
+            if (sx < 0 || sx > w)
+                vx = -vx;
+            if (sy < 0 || sy > h)
+                vy = -vy;
         }
 
         public void draw(Graphics g) {
-            g.drawOval((int)sx-3, (int)sy-3, 6, 6);
+            g.drawOval((int) sx - 3, (int) sy - 3, 6, 6);
         }
     }
 
@@ -49,11 +51,15 @@ public class DanmakuTest extends JFrame {
             try {
                 String cmd = ev.getActionCommand();
                 int n = Integer.parseInt(tf_num.getText());
-                switch(cmd) {
-                    case "追加": gm.addShot(n); break;
-                    case "削除": gm.delShot(n); break;
+                switch (cmd) {
+                    case "追加":
+                        gm.addShot(n);
+                        break;
+                    case "削除":
+                        gm.delShot(n);
+                        break;
                 }
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.err.println(e);
             }
         }
@@ -72,20 +78,23 @@ public class DanmakuTest extends JFrame {
 
         public void addShot(int n) {
             int w = gp.getWidth(), h = gp.getHeight();
-            double x = w/2, y = h/2;
-            for(int i = 0; i < n; i++) {
-                double a = 2*Math.PI*Math.random();
-                shot_list.add(new Shot(x, y, a));
+            double x = w / 2, y = h / 2;
+            for (int i = 0; i < n; i++) {
+                double a = 2 * Math.PI * Math.random();
+                synchronized (shot_list) {
+                    shot_list.add(new Shot(x, y, a));
+                }
             }
             gp.repaint();
         }
 
         public void delShot(int n) {
-            int s = shot_list.size();
-            for(int i = 0; i < n; i++) {
-                if(s == 0) break;
-                shot_list.remove(s-1);
-                s = shot_list.size();
+            synchronized (shot_list) {
+                for (int i = 0; i < n; i++) {
+                    int s = shot_list.size();
+                    if(s == 0) break;
+                    shot_list.remove(s - 1);
+                }
             }
             gp.repaint();
         }
@@ -93,26 +102,31 @@ public class DanmakuTest extends JFrame {
         public void run() {
             start_time = System.nanoTime();
             frame_count = 0;
-            while(true) {
+            while (true) {
                 int w = gp.getWidth(), h = gp.getHeight();
-                for(Shot s:shot_list) s.move(w, h);
+                synchronized(shot_list) {
+                    for(Shot s:shot_list) s.move(w, h);
+                }
                 gp.repaint();
                 try {
                     sleep(10);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
                 frame_count += 1;
             }
         }
 
         public void drawAllShots(Graphics g) {
             g.setColor(Color.white);
-            for(Shot s:shot_list) s.draw(g);
-            double t = (System.nanoTime()-start_time)/1000000000.0;
-            double fps = (int) ((frame_count*10/t))/10;
+            synchronized(shot_list) {
+                for (Shot s : shot_list) s.draw(g);
+            }
+            double t = (System.nanoTime() - start_time) / 1000000000.0;
+            double fps = (int) ((frame_count * 10 / t)) / 10;
             g.setColor(Color.cyan);
             g.setFont(new Font("", Font.PLAIN, 36));
             g.drawString("Shots:" + shot_list.size() + " FPS:" + fps, 10, 40);
-            if(t > 2) {
+            if (t > 2) {
                 start_time = System.nanoTime();
                 frame_count = 0;
             }
@@ -130,7 +144,7 @@ public class DanmakuTest extends JFrame {
             this.gm = gm;
         }
 
-        public void paintComponent(Graphics g){
+        public void paintComponent(Graphics g) {
             super.paintComponent(g);
             gm.drawAllShots(g);
         }
