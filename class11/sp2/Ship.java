@@ -9,10 +9,12 @@ public class Ship implements MouseInputListener, MouseMotionListener {
     private double vel_max = 8;
     private double px, py;
     private int mx, my;
+    private boolean m_down;
 
     public Ship(int x, int y) {
         px = mx = x;
         py = my = y;
+        m_down = false;
     }
 
     public void move() {
@@ -27,6 +29,12 @@ public class Ship implements MouseInputListener, MouseMotionListener {
         py += vy;
     }
 
+    public void shot (GameManager gm) {
+        if(m_down) {
+            gm.addBeam(new Beam(px, py));
+        }
+    }
+
     public void draw(Graphics g) {
         int[] x = { (int) px, (int) px - 10, (int) px + 10 };
         int[] y = { (int) py - 15, (int) py + 10, (int) py + 10 };
@@ -36,8 +44,12 @@ public class Ship implements MouseInputListener, MouseMotionListener {
         g.drawPolygon(x, y, 3);
     }
 
-    public void mousePressed (MouseEvent ev) {}
-    public void mouseReleased (MouseEvent ev) {}
+    public void mousePressed (MouseEvent ev) {
+        m_down = true;
+    }
+    public void mouseReleased (MouseEvent ev) {
+        m_down = false;
+    }
     public void mouseClicked (MouseEvent ev) {}
     public void mouseEntered (MouseEvent ev) {}
     public void mouseExited (MouseEvent ev) {}
