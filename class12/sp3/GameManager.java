@@ -59,12 +59,13 @@ public class GameManager extends Thread {
         for(Bomb b:bombs) {
             b.draw(g);
         }
-        for(Enemy b:enemies) {
-            b.draw(g);
+        for(Enemy e:enemies) {
+            e.draw(g);
         }
         ship.draw(g);
         g.setColor(Color.white);
-        g.drawString("Beams:" + beams.size(), 10, 550);
+        g.drawString("Beams:" + beams.size(), 10, 540);
+        g.drawString("Bombs:" + bombs.size(), 10, 560);
     }
 
     public void addBeam(Beam b) {
@@ -85,6 +86,7 @@ public class GameManager extends Thread {
         Iterator<Enemy> it = enemies.iterator();
         while(it.hasNext()) {
             Enemy e = it.next();
+            e.dropBomb(sx, sy, this);
             if(!e.move(w, h, sx, sy)) {
                 it.remove();
             }
