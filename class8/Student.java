@@ -1,13 +1,13 @@
-package class7;
+package class8;
 
 public class Student extends Person {
 
-    private int studentid;
+    private String studentid;
     private int studentyear;
     private String gakubu;
     private String gakka;
 
-    public Student(String sei, String name, int age, String birthday, int studentid, int studentyear, String gakubu, String gakka) {
+    public Student(String sei, String name, int age, String birthday, String studentid, int studentyear, String gakubu, String gakka) {
         super(sei, name, age, birthday);
         this.studentid = studentid;
         this.studentyear = studentyear;
@@ -28,7 +28,7 @@ public class Student extends Person {
         System.out.println("Gakka : " + gakka);
     }
 
-    public int getStudentid() {
+    public String getStudentid() {
         return this.studentid;
     }
     public int getStudentyear() {
@@ -41,7 +41,7 @@ public class Student extends Person {
         return this.gakka;
     }
     
-    public void setStudentid(int studentid) {
+    public void setStudentid(String studentid) {
         this.studentid = studentid;
     }
     public void setStudentyear(int studentyear) {

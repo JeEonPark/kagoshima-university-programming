@@ -1,4 +1,4 @@
-package class7;
+package class8;
 
 public class Person {
     private String sei;
