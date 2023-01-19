@@ -81,9 +81,17 @@ public class Enemy2 extends Enemy {
     }
 
     public void dropBomb(double sx, double sy, GameManager gm) {
-        if(Math.random() > 0.01) {
+        if (Math.random() > 0.01) {
             return;
         }
-        double dx = sx - px, dy = sy-py;
+        double dx = sx - px, dy = sy - py;
+        double d = Math.sqrt(dx * dx + dy * dy);
+        double a1 = Math.atan2(dy, dx);
+        double t = Math.PI / 10;
+        for (int i = -2; i <= 2; i++) {
+            double tx = px + d * Math.cos(a1 + t * i);
+            double ty = px + d * Math.sin(a1 + t * 1);
+            gm.addBomb(new Bomb(px, py, tx, ty));
+        }
     }
 }
