@@ -1,4 +1,4 @@
-package class13.sp5;
+package class13.sp6;
 
 import java.awt.*;
 import java.util.*;
@@ -11,6 +11,7 @@ public class GameManager extends Thread {
     private ArrayList<Bomb> bombs;
     private ArrayList<Explosion> explosions;
     private ArrayList<Shield> shields;
+    private ArrayList<Msg> msgs;
 
     public GameManager(DanmakuField df) {
         this.df = df;
@@ -20,6 +21,7 @@ public class GameManager extends Thread {
         bombs = new ArrayList<Bomb>();
         explosions = new ArrayList<Explosion>();
         shields = new ArrayList<Shield>();
+        msgs = new ArrayList<Msg>();
         df.addMouseListener(ship);
         df.addMouseMotionListener(ship);
     }
@@ -47,16 +49,28 @@ public class GameManager extends Thread {
                 collideBE();
             if (t % 10 == 0)
                 collideBS();
+            if (t % 30 == 0)
+                playAllMessages();
 
             if (t % 200 == 0) {
-                switch((int) (Math.random()*3)) {
-                    case 0: enemies.add(new Enemy1(w, h)); break;
-                    case 1: enemies.add(new Enemy2(w, h, sx, sy)); break;
-                    case 2: enemies.add(new Enemy3(w, h, sx, sy)); break;
+                switch ((int) (Math.random() * 3)) {
+                    case 0:
+                        enemies.add(new Enemy1(w, h));
+                        break;
+                    case 1:
+                        enemies.add(new Enemy2(w, h, sx, sy));
+                        break;
+                    case 2:
+                        enemies.add(new Enemy3(w, h, sx, sy));
+                        break;
                 }
             }
-            if(t == 2000)
+            if (t == 5000)
                 enemies.add(new EnemyBoss(w, h));
+            if (t == 0)
+                msgs.add(new MsgBrink("The Danmaku", 200, Color.cyan, 40, 10, 5, 80));
+            if (t == 4000)
+                msgs.add(new MsgScroll("Warning", Color.red, 24));
             df.repaint();
             try {
                 sleep(2);
@@ -67,6 +81,7 @@ public class GameManager extends Thread {
     }
 
     public void draw(Graphics g) {
+        int w = df.getWidth(), h = df.getHeight();
         for (Beam b : beams) {
             b.draw(g);
         }
@@ -83,9 +98,11 @@ public class GameManager extends Thread {
             s.draw(g);
         }
         ship.draw(g);
+        for (Msg m : msgs)
+            m.draw(g, w, h);
         g.setColor(Color.white);
-        g.drawString("Beams:" + beams.size(), 10, 540);
-        g.drawString("Bombs:" + bombs.size(), 10, 560);
+        // g.drawString("Beams:" + beams.size(), 10, 540);
+        // g.drawString("Bombs:" + bombs.size(), 10, 560);
     }
 
     public void addBeam(Beam b) {
@@ -166,6 +183,16 @@ public class GameManager extends Thread {
                 b.die();
                 double x = ship.getX(), y = ship.getY();
                 shields.add(new Shield(x, y));
+            }
+        }
+    }
+
+    private void playAllMessages() {
+        Iterator<Msg> it = msgs.iterator();
+        while (it.hasNext()) {
+            Msg m = it.next();
+            if (!m.play()) {
+                it.remove();
             }
         }
     }

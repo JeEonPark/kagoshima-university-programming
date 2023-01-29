@@ -1,5 +1,3 @@
-package class13.sp6;
-
 import java.awt.*;
 
 public class Enemy2 extends Enemy {
@@ -94,4 +92,8 @@ public class Enemy2 extends Enemy {
             gm.addBomb(new Bomb(px, py, tx, ty));
         }
     }
+
+    public int getScore(){
+        return 20;
+      }
 }

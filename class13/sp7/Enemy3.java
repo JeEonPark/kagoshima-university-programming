@@ -1,5 +1,3 @@
-package class13.sp6;
-
 import java.awt.*;
 
 public class Enemy3 extends Enemy {
@@ -62,8 +60,8 @@ public class Enemy3 extends Enemy {
             vx = tx - px;
             vy = ty - py;
             double d = Math.sqrt(vx * vx + vy * vy);
-            vx = vx * vel_max/d;
-            vy = vy * vel_max/d;
+            vx = vx * vel_max / d;
+            vy = vy * vel_max / d;
         }
         px += vx;
         py += vy;
@@ -73,14 +71,18 @@ public class Enemy3 extends Enemy {
     }
 
     public void dropBomb(double sx, double sy, GameManager gm) {
-        if(Math.random() > 0.01) {
+        if (Math.random() > 0.01) {
             return;
         }
         double t = 2 * Math.PI / 16;
-        for(int i = 0; i < 16; i++) {
-            double tx = px + Math.cos(t*i);
-            double ty = py + Math.sin(t*i);
+        for (int i = 0; i < 16; i++) {
+            double tx = px + Math.cos(t * i);
+            double ty = py + Math.sin(t * i);
             gm.addBomb(new Bomb(px, py, tx, ty));
         }
+    }
+
+    public int getScore() {
+        return 30;
     }
 }

@@ -1,5 +1,3 @@
-package class13.sp6;
-
 import java.awt.*;
 
 public class EnemyBoss extends Enemy {
@@ -97,6 +95,10 @@ public class EnemyBoss extends Enemy {
 
     public void die() {
         life--;
+    }
+
+    public int getScore() {
+        return 40;
     }
 
 }

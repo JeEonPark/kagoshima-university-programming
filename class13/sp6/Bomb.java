@@ -1,4 +1,4 @@
-package class13.sp5;
+package class13.sp6;
 
 import java.awt.*;;
 
